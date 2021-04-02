@@ -19,10 +19,10 @@
 读者可以结合geatpy v1.1.5的例子使用本项目代码，也可以继续以此为基础进行扩展。
 
 文件说明：
-ga.py -- 基础操作的python函数集合。
-GA_Test.ipynb -- 基础函数的jupyter测试文件。
-API -- 转载自Geatpy v1.1.5 中的开源文档。
-introduction -- 转载自Geatpy v1.1.5 中的开源文档。
-gatbx.zip -- matlab gatbx 工具箱源文件。
+- ga.py -- 基础操作的python函数集合。
+- GA_Test.ipynb -- 基础函数的jupyter测试文件。
+- API -- 转载自Geatpy v1.1.5 中的开源文档。
+- introduction -- 转载自Geatpy v1.1.5 中的开源文档。
+- gatbx.zip -- matlab gatbx 工具箱源文件。
 
 ga.py 文件中没有包含所有gatbx和API中的函数，同时加入了一些其他常用功能的函数，项目还在进一步完善中。
