@@ -1,5 +1,6 @@
 import numpy as np
 from decimal import Decimal
+import matplotlib.pyplot as plt
 
 def rep(MatIn,REPN):
     N  = MatIn.shape
@@ -219,12 +220,21 @@ def mutint(OldChrom, FieldDR, Pm=None, params3=None, params4=None):
     return NewChrom
 
 
+def mutbin(OldChrom, Pm=None, params3=None, params4=None):
+    Nind, Nvar = OldChrom.shape
+    FieldDR = np.array([[0] * Nvar, [1] * Nvar])
+
+    NewChrom = mutint(OldChrom, FieldDR, Pm)
+
+    return NewChrom.astype(np.int64)
+
+
 def ranking(ObjV, LegV, RFun=None, SUBPOP=1):
     if ObjV.shape != LegV.shape:
         raise ValueError('The ObjV and LegV should be match.')
 
     for i, o in enumerate(ObjV):
-        if o == None or np.nan:
+        if o == None or o == np.nan:
             LegV[i] = 0
 
     Nind, ans = ObjV.shape
@@ -440,14 +450,14 @@ def is2(FieldD):
     else:
         return False
 
-def rv2bs(self, gen, FieldD):
+def rv2bs(gen, FieldD):
     result = []
     for individual in gen:
         gen_i = []
         for g, u, c, l in zip(individual, FieldD[1,:], FieldD[3, :], FieldD[0, :]):
-            g_b = self.dec2bin(g-u, l)
+            g_b = dec2bin(g-u, l)
             if c == 1:
-                g_g =self.bin2gary(g_b)
+                g_g = bin2gary(g_b)
                 gen_i.extend(g_g)
             elif c == 0:
                 gen_i.extend(g_b)
@@ -484,3 +494,21 @@ def bin2gary(binary):
     for i, b in enumerate(binary[1:]):
         result.append(b ^ binary[i])
     return result
+
+def trcplot(pop_trace, labels, titles = None, save_path = None):
+    l = len(pop_trace)
+    t = np.arange(l)
+    index = 0
+    for i, l_i in enumerate(labels):
+        plt.figure()
+        plt.xlabel('代数')
+        plt.grid(True)
+        for l_j in l_i:
+            plt.plot(t, pop_trace[:,index:index+1], label=l_j)
+            index += 1
+        plt.legend()
+        if titles is not None:
+            plt.title(titles[i])
+    if save_path is not None:
+        plt.savefig(save_path)
+    plt.show()
